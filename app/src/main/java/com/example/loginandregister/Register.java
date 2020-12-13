@@ -4,8 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+
+import com.example.model.User;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.concurrent.BlockingDeque;
 import java.util.regex.Pattern;
@@ -14,6 +19,9 @@ public class Register extends AppCompatActivity {
     EditText email;
     EditText password;
     EditText passwordCf;
+    private DatabaseReference mFirebaseDatabase;
+    private FirebaseDatabase mFirebaseInstance;
+    private String userID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +30,9 @@ public class Register extends AppCompatActivity {
         email=findViewById(R.id.txtEmail);
         password=findViewById(R.id.txtPassword);
         passwordCf=findViewById(R.id.txtConfirmPassword);
+
+        mFirebaseInstance=FirebaseDatabase.getInstance();
+        mFirebaseDatabase=mFirebaseInstance.getReference("users");
     }
 
     public void BackTomain(View view) {
@@ -101,9 +112,22 @@ public class Register extends AppCompatActivity {
             return true;
         }
     }
+
+    public void createUser(String userName,String email,String password){
+        if(TextUtils.isEmpty(userID)){
+            userID=mFirebaseDatabase.push().getKey();
+        }
+        User user=new User(userName,email,password);
+        mFirebaseDatabase.child(userID).setValue(user);
+    }
     public void register(View view) {
         if(!validateUserName()|!validateEmail()|!validatePassword()){
             return;
+        }
+        else {
+           createUser(userName.getText().toString(),email.getText().toString(),password.getText().toString());
+            Intent intent=new Intent(this,MainActivity.class);
+            startActivity(intent);
         }
     }
 }
