@@ -38,8 +38,9 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void BackTomain(View view) {
-        startActivity(new Intent(getApplicationContext(),MainActivity.class));
         FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(getApplicationContext(),MainActivity.class));
         finish();
     }
+
 }
