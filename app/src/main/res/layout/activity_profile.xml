@@ -51,12 +51,11 @@
         app:layout_constraintTop_toTopOf="@+id/textView11" />
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/txt_user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="108dp"
-        android:text="Ereshkigal"
         android:textColor="@color/design_default_color_background"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="@+id/textView11"
