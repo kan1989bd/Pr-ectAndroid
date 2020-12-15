@@ -31,6 +31,10 @@ public class User {
         this.userName = userName;
     }
 
+    public User(){
+
+    }
+
     public User(String userId, String userName, String imgUrl){
         this.userId=userId;
         this.userName=userName;
