@@ -74,7 +74,7 @@ public class Register extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     Toast.makeText(Register.this,"User Created",Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
+                                    startActivity(new Intent(getApplicationContext(),MainScreen.class));
                                 }
                             });
 
