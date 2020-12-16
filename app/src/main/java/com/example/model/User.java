@@ -35,12 +35,10 @@ public class User {
 
     }
 
-    public User(String userId, String userName, String imgUrl){
-        this.userId=userId;
-        this.userName=userName;
-        this.imgUrl=imgUrl;
+    public User(String userId, String userName, String imgUrl) {
+        this.userId = userId;
+        this.userName = userName;
+        this.imgUrl = imgUrl;
     }
-
-    public User(){}
 
 }
