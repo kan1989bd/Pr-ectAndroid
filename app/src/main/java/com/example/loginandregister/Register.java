@@ -45,10 +45,6 @@ public class Register extends AppCompatActivity {
         firebaseAuth=FirebaseAuth.getInstance();
         progressBar=findViewById(R.id.progressBar);
 
-        if(firebaseAuth.getCurrentUser()!=null){
-            startActivity(new Intent(getApplicationContext(),MainScreen.class));
-            finish();
-        }
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,12 +65,12 @@ public class Register extends AppCompatActivity {
                             String userId=firebaseUser.getUid();
 
                             DatabaseReference database=FirebaseDatabase.getInstance().getReference("User");
-                            User user=new User(userId,valUserName,"default");
+                            final User user=new User(userId,valUserName,"default");
                             database.child(userId).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     Toast.makeText(Register.this,"User Created",Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
+                                    startActivity(new Intent(getApplicationContext(),MainScreen.class));
                                 }
                             });
 

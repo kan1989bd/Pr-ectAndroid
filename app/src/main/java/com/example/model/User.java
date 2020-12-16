@@ -41,5 +41,6 @@ public class User {
         this.imgUrl=imgUrl;
     }
 
+    public User(){}
 
 }
