@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.loginandregister.EditProfile;
 import com.example.loginandregister.MainActivity;
 import com.example.loginandregister.MainScreen;
 import com.example.loginandregister.R;
@@ -24,12 +26,15 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 public class MainProfileFragment extends Fragment {
     Button btnLogout;
     TextView txtUserName;
     TextView txtInfoName;
     TextView txtInfoEmail;
+    TextView txtUserSetting;
+    ImageView imageAvatar;
     private FirebaseUser firebaseUser;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
@@ -42,6 +47,8 @@ public class MainProfileFragment extends Fragment {
         txtUserName=view.findViewById(R.id.txt_profile_user_name);
         txtInfoName=view.findViewById(R.id.txt_profile_infor_nam);
         txtInfoEmail=view.findViewById(R.id.txt_profile_infor_email);
+        txtUserSetting=view.findViewById(R.id.txt_setting_account);
+        imageAvatar=view.findViewById(R.id.img_profile_avatar);
 
         firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
         firebaseDatabase=FirebaseDatabase.getInstance();
@@ -54,6 +61,12 @@ public class MainProfileFragment extends Fragment {
                 txtUserName.setText(user.getUserName());
                 txtInfoName.setText(user.getUserName());
                 txtInfoEmail.setText(firebaseUser.getEmail());
+                String imgUrl=user.getImgUrl();
+
+                if(imgUrl!="default"){
+                    Picasso.get().load(imgUrl).into(imageAvatar);
+                }
+
             }
 
             @Override
@@ -71,6 +84,16 @@ public class MainProfileFragment extends Fragment {
                 getActivity().finish();
             }
         });
+
+        txtUserSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),EditProfile.class));
+            }
+        });
+
+
         return view;
     }
+
 }
