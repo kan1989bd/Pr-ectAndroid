@@ -33,13 +33,14 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 public class EditProfile extends AppCompatActivity {
-    Button btnBackProfile;
+    Button btnBackProfile, btnEditUsername;
     ImageView imgAvatar;
     EditText editTextUserName;
-    EditText editTextPassword;
-    TextView txtTest;
+    TextView txtChangePassword;
+
     private FirebaseUser firebaseUser;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
@@ -54,7 +55,8 @@ public class EditProfile extends AppCompatActivity {
         btnBackProfile=findViewById(R.id.btn_edit_back);
         editTextUserName=findViewById(R.id.txt_edit_profile_username);
         imgAvatar=findViewById(R.id.img_edit_profile_avatar);
-
+        btnEditUsername=findViewById(R.id.btn_update_username);
+        txtChangePassword=findViewById(R.id.txt_edit_profile_password);
 
         firebaseStorage=FirebaseStorage.getInstance();
         firebaseDatabase=FirebaseDatabase.getInstance();
@@ -76,8 +78,35 @@ public class EditProfile extends AppCompatActivity {
             }
         });
 
+        txtChangePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),ChangePassword.class));
+            }
+        });
+        btnEditUsername.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                storageReference=firebaseStorage.getReference();
 
 
+                firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
+
+                databaseReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        databaseReference=FirebaseDatabase.getInstance().getReference("User").child(firebaseUser.getUid()).child("userName");
+                        databaseReference.setValue(editTextUserName.getText().toString());
+                        Toast.makeText(getApplicationContext(),"Update Username",Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+        });
     }
 
     private void choosePicture(){
@@ -155,6 +184,11 @@ public class EditProfile extends AppCompatActivity {
                 User user=snapshot.getValue(User.class);
                 assert user!=null;
                 editTextUserName.setText(user.getUserName(), TextView.BufferType.EDITABLE);
+                String imgUrl=user.getImgUrl();
+
+                if(imgUrl!="default"){
+                    Picasso.get().load(imgUrl).into(imgAvatar);
+                }
             }
 
             @Override
