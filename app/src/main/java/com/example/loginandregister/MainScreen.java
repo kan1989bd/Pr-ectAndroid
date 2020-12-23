@@ -21,16 +21,18 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainScreen extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     Button btn;
+    FirebaseUser firebaseUser;
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_screen_activity);
         btn=findViewById(R.id.btn_profile_logout);
         firebaseAuth=FirebaseAuth.getInstance();
-        if(firebaseAuth.getCurrentUser()==null){
+        /*if(firebaseAuth.getCurrentUser()==null){
             Toast.makeText(MainScreen.this,"Hiện chưa có dằng nhập",Toast.LENGTH_SHORT).show();
             startActivity(new Intent(getApplication(),MainActivity.class));
-        }
+        }*/
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new MainScreenFragment()).commit();
