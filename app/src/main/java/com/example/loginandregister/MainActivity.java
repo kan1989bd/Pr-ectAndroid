@@ -6,9 +6,25 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.fragment.MainScreenFragment;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class MainActivity extends AppCompatActivity {
 
     private Object Register;
+
+    FirebaseUser firebaseUser;
+    @Override
+    protected void onStart() {
+        super.onStart();
+        firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
+        if (firebaseUser !=null)
+        {
+            startActivity(new Intent(MainActivity.this, SplashActivity.class));
+            finish();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
