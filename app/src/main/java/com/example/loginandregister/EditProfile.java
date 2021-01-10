@@ -74,7 +74,7 @@ public class EditProfile extends AppCompatActivity {
         btnBackProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),MainScreen.class));
+                startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
             }
         });
 

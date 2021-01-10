@@ -16,26 +16,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btnFriendRequst"
-        android:layout_width="210dp"
-        android:layout_height="45dp"
-        android:background="#23272a"
-        android:text="Friend Request"
-        android:textColor="#fff"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
-
-    <Button
-        android:id="@+id/btnInvitation"
-        android:layout_width="215dp"
-        android:layout_height="45dp"
-        android:background="#23272a"
-        android:text="Invitation"
-        android:onClick="Invitation"
-        android:textColor="#fff"
+    <FrameLayout
+        android:id="@+id/fragment_friend_container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/top_navigation"
+        app:layout_constraintVertical_bias="0.0">
+
+    </FrameLayout>
 
     <Button
         android:id="@+id/btnBack"
@@ -60,4 +52,17 @@
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/btnBack"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/top_navigation"
+        android:layout_width="0dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="4dp"
+        android:background="#23272a"
+        app:itemIconTint="#99aab5"
+        app:itemTextColor="#99aab5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        app:menu="@menu/top_navigation_friend_menu" />
 </androidx.constraintlayout.widget.ConstraintLayout>
