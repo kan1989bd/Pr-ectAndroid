@@ -36,7 +36,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/recycle_view"
+        android:id="@+id/recycler_view_chat"
         android:layout_below="@id/above"
         android:layout_above="@id/bottom"
         />

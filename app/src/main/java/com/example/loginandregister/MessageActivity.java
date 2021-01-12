@@ -64,7 +64,7 @@ public class MessageActivity extends AppCompatActivity {
         });
 
         //Load message
-        recyclerView=findViewById(R.id.recycle_view);
+        recyclerView=findViewById(R.id.recycler_view_chat);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setStackFromEnd(true);
