@@ -1,6 +1,5 @@
 package com.example.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.Adapter.UserAdapter;
-import com.example.loginandregister.MainActivity;
 import com.example.loginandregister.R;
 import com.example.model.Chat;
 import com.example.model.User;
@@ -30,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainScreenFragment extends Fragment {
+    Button btnFriend2;
     private RecyclerView recyclerView;
     private UserAdapter userAdapter;
     private List<User>mUser;
@@ -42,8 +41,8 @@ public class MainScreenFragment extends Fragment {
 
 
        //return view;
-        View view=inflater.inflate(R.layout.fragment_friend_main_screen,container,false);
-        recyclerView=view.findViewById(R.id.recycler_view);
+        View view=inflater.inflate(R.layout.fragment_chat_screen,container,false);
+        recyclerView=view.findViewById(R.id.recycler_view_chat);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
