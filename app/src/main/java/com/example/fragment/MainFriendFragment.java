@@ -56,7 +56,8 @@ public class MainFriendFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(userAdapter);
         mUser=new ArrayList<>();
-        readFriend();
+      //  readFriend();
+        readUsers();
         search_users = view.findViewById(R.id.search_user);
         search_users.addTextChangedListener(new TextWatcher() {
             @Override
@@ -78,6 +79,7 @@ public class MainFriendFragment extends Fragment {
 
     }
     private void searchUsers(String s) {
+        mUser.clear();
         final FirebaseUser fuser = FirebaseAuth.getInstance().getCurrentUser();
         Query query = FirebaseDatabase.getInstance().getReference("User").orderByChild("userName")
                 .startAt(s)
@@ -106,7 +108,7 @@ public class MainFriendFragment extends Fragment {
         });
     }
     private void readUsers() {
-      //  readFriend();
+        readFriend();
         final FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("User");
         reference.addValueEventListener(new ValueEventListener() {
@@ -126,8 +128,6 @@ public class MainFriendFragment extends Fragment {
                     }
                     userAdapter = new UserAdapter(getContext(), mUser);
                     recyclerView.setAdapter(userAdapter);
-
-
                 }
             }
 
@@ -154,7 +154,7 @@ public class MainFriendFragment extends Fragment {
                         }
 
                 }
-                readUsers();
+            //    readUsers();
             }
 
             @Override
