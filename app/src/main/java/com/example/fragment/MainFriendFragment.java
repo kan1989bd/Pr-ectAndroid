@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.Adapter.UserAdapter;
 import com.example.loginandregister.FriendRequest;
 import com.example.loginandregister.R;
+import com.example.model.Friend;
 import com.example.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -39,6 +40,7 @@ public class MainFriendFragment extends Fragment {
     private RecyclerView recyclerView;
     private List<User> mUser;
     EditText search_users;
+    ArrayList<String> list=new ArrayList<String>();
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view =inflater.inflate(R.layout.fragment_friend_main_screen,container,false);
@@ -54,7 +56,7 @@ public class MainFriendFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(userAdapter);
         mUser=new ArrayList<>();
-        readUsers();
+        readFriend();
         search_users = view.findViewById(R.id.search_user);
         search_users.addTextChangedListener(new TextWatcher() {
             @Override
@@ -72,8 +74,6 @@ public class MainFriendFragment extends Fragment {
 
             }
         });
-
-
         return view;
 
     }
@@ -86,18 +86,19 @@ public class MainFriendFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot){
                 mUser.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    User user = snapshot.getValue(User.class);
-                    assert user != null;
-                    assert fuser != null;
-                    if(!user.getUserId().equals(fuser.getUid())){
-                        mUser.add(user);
+                for (String i:list) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        User user = snapshot.getValue(User.class);
+                        assert user != null;
+                        assert fuser != null;
+                        if (user.getUserId().equals(i)) {
+                            mUser.add(user);
+                        }
                     }
                 }
                 userAdapter = new UserAdapter(getContext(),mUser);
                 recyclerView.setAdapter(userAdapter);
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -105,6 +106,7 @@ public class MainFriendFragment extends Fragment {
         });
     }
     private void readUsers() {
+      //  readFriend();
         final FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("User");
         reference.addValueEventListener(new ValueEventListener() {
@@ -112,13 +114,15 @@ public class MainFriendFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (search_users.getText().toString().equals("")) {
                     mUser.clear();
+                    for (String i:list) {
                     for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                         User user = snapshot1.getValue(User.class);
                         assert user != null;
                         assert firebaseUser != null;
-                        if (!user.getUserId().equals(firebaseUser.getUid())) {
+                        if (user.getUserId().equals(i)) {
                             mUser.add(user);
                         }
+                    }
                     }
                     userAdapter = new UserAdapter(getContext(), mUser);
                     recyclerView.setAdapter(userAdapter);
@@ -127,6 +131,31 @@ public class MainFriendFragment extends Fragment {
                 }
             }
 
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    private void readFriend(){
+        final FirebaseUser fuser=FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference reference=FirebaseDatabase.getInstance().getReference("Friends");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot snapshot1:snapshot.getChildren()){
+                    Friend friend=snapshot1.getValue(Friend.class);
+                        if(friend.getMyId().equals(fuser.getUid())&&friend.getStatus().equals("1")){
+                            list.add(friend.getFriendId());
+                        }
+                        if(friend.getFriendId().equals(fuser.getUid())&&friend.getStatus().equals("1")){
+                            list.add(friend.getMyId());
+                        }
+
+                }
+                readUsers();
+            }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
