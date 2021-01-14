@@ -26,6 +26,7 @@ android {
 dependencies {
     def fragment_version = "1.2.5"
     // Java language implementation
+    implementation 'com.google.firebase:firebase-database:19.6.0'
     implementation "androidx.fragment:fragment:$fragment_version"
     implementation platform('com.google.firebase:firebase-bom:26.1.1')
     implementation 'com.google.firebase:firebase-analytics'

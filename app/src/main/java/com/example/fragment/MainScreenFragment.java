@@ -25,7 +25,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class MainScreenFragment extends Fragment {
     Button btnFriend2;
@@ -34,7 +36,7 @@ public class MainScreenFragment extends Fragment {
     private List<User>mUser;
     FirebaseUser fuser;
     DatabaseReference reference;
-    private List<String>usersList;
+    private List<String>usersList=new ArrayList<String>();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -47,7 +49,6 @@ public class MainScreenFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         fuser= FirebaseAuth.getInstance().getCurrentUser();
-        usersList=new ArrayList<>();
         reference= FirebaseDatabase.getInstance().getReference("Chats");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -72,32 +73,24 @@ public class MainScreenFragment extends Fragment {
         });
         return view;
     }
-    private void readChats(){
+    void readChats() {
         mUser=new ArrayList<>();
         reference=FirebaseDatabase.getInstance().getReference("User");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Set<String> set = new HashSet<String>(usersList);
+                List<String> usersListd = new ArrayList<String>(set);
                 mUser.clear();
-                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
-                    User user=snapshot.getValue(User.class);
-                    for(String id:usersList){
-                        if(user.getUserId().equals(id)){
-                            if(mUser.size()!=0){
-                                for(User user1:mUser){
-                                    if(!user.getUserId().equals(user1.getUserId())){
-                                        mUser.add(user);
-                                    }
-                                }
-                            }else{
-                                mUser.add(user);
-                            }
+                for(String i:usersListd){
+                    for(DataSnapshot snapshot1:snapshot.getChildren()){
+                        User user=snapshot1.getValue(User.class);
+                        if(user.getUserId().equals(i)){
+                            mUser.add(user);
                         }
                     }
                 }
-
                 userAdapter=new UserAdapter(getContext(),mUser);
-//            userAdapter=new UserAdapter(getContext(),mUser,true);
                 recyclerView.setAdapter(userAdapter);
             }
 
