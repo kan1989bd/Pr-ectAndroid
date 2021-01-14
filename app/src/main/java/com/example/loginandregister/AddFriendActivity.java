@@ -2,7 +2,9 @@ package com.example.loginandregister;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.fragment.MainInvitationFragment;
 import com.example.model.Friend;
 import com.example.model.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,6 +43,16 @@ public class AddFriendActivity extends AppCompatActivity {
         imageAvatar=findViewById(R.id.img_profile_avatar);
         btn_make_friend=findViewById(R.id.btn_make_friend);
         btn_unfriend=findViewById(R.id.btn_unfriend);
+        Toolbar toolbar=findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 String d=getIntent().getStringExtra("status");
         if(d.equals("0")){
             btn_make_friend.setVisibility(View.INVISIBLE);
@@ -77,13 +90,13 @@ String d=getIntent().getStringExtra("status");
 btn_make_friend.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
+        btn_make_friend.setVisibility(View.INVISIBLE);
+        btn_unfriend.setVisibility(View.VISIBLE);
         String t=getIntent().getStringExtra("idUser");
         fuser= FirebaseAuth.getInstance().getCurrentUser();
         Friend friend=new Friend(fuser.getUid(),t,"0");
         FirebaseDatabase.getInstance().getReference().child("Friends").child(fuser.getUid()+t).setValue(friend);
-        btn_make_friend.setVisibility(View.INVISIBLE);
-        btn_unfriend.setVisibility(View.VISIBLE);
-
+     //   Toast.makeText(AddFriendActivity.this,"ht",Toast.LENGTH_SHORT).show();
     }
 });
 
@@ -91,13 +104,18 @@ btn_make_friend.setOnClickListener(new View.OnClickListener() {
 btn_unfriend.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-                String t=getIntent().getStringExtra("idUser");
-        fuser= FirebaseAuth.getInstance().getCurrentUser();
-        Friend friend=new Friend(fuser.getUid(),t,"0");
-        FirebaseDatabase.getInstance().getReference().child("Friends").child(fuser.getUid()+t).removeValue();
-        FirebaseDatabase.getInstance().getReference().child("Friends").child(t+fuser.getUid()).removeValue();
         btn_make_friend.setVisibility(View.VISIBLE);
         btn_unfriend.setVisibility(View.INVISIBLE);
+     //   Toast.makeText(AddFriendActivity.this,"td",Toast.LENGTH_SHORT).show();
+              String t=getIntent().getStringExtra("idUser");
+     fuser= FirebaseAuth.getInstance().getCurrentUser();
+      Friend friend=new Friend(fuser.getUid(),t,"0");
+        FirebaseDatabase.getInstance().getReference().child("Friends").child(fuser.getUid()+t).removeValue();
+        FirebaseDatabase.getInstance().getReference().child("Friends").child(t+fuser.getUid()).removeValue();
+//        btn_make_friend.setVisibility(View.VISIBLE);
+//        btn_unfriend.setVisibility(View.INVISIBLE);
+//        startActivity(new Intent(getApplicationContext(), MainInvitationFragment.class));
+//        finish();
     }
 });
 
