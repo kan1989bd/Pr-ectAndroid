@@ -27,21 +27,30 @@
     <Button
         android:id="@+id/btn_agree"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="38dp"
         android:layout_alignTop="@+id/btn_cancel"
         android:layout_alignBottom="@+id/btn_cancel"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="-1dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="0dp"
         android:layout_toStartOf="@+id/btn_cancel"
-        android:text="Agree" />
+        android:background="@drawable/button_border"
+        android:text="Agree"
+        android:textColor="#fff" />
 
     <Button
         android:id="@+id/btn_cancel"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="38dp"
+        android:layout_alignBottom="@+id/profile_image"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="1dp"
-        android:text="Cancel" />
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="7dp"
+        android:background="@drawable/button_border_greycolor"
+        android:text="Cancel"
+        android:textColor="#4453AC" />
 
 </RelativeLayout>

@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/toolbar"
-            android:background="@color/design_default_color_primary_dark"
+            android:background="@color/discordDarkGrey"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -140,11 +140,14 @@
 
     <Button
         android:id="@+id/btn_make_friend"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/button_border"
         android:text=" Make friend"
-        android:textColor="#99aab5"
+        android:textColor="#fff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -152,11 +155,14 @@
 
     <Button
         android:id="@+id/btn_unfriend"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/button_border"
+        android:textColor="#fff"
         android:text="Unfriend"
-        android:textColor="#99aab5"
         android:visibility="invisible"
         android:saveEnabled="false"
         android:enabled="true"
