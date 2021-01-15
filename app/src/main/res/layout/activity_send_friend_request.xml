@@ -10,7 +10,7 @@
         android:id="@+id/btnSendFriendRequest"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="150dp"
+        android:layout_marginBottom="70dp"
         android:background="@drawable/button_border"
         android:text="SEND INVATATION"
         android:textColor="#fff"
