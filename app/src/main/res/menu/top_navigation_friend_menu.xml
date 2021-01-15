@@ -2,8 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:title="Friend Request"
-        android:id="@+id/Fragment_Friend_Request"/>
+        android:id="@+id/Fragment_Friend_Request"
+        android:icon="@drawable/ic_request"/>
     <item
         android:title="Invitation"
-        android:id="@+id/Fragment_Invitation"/>
+        android:id="@+id/Fragment_Invitation"
+        android:icon="@drawable/ic_invitation"
+        />
 </menu>
