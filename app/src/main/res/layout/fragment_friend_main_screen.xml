@@ -20,16 +20,20 @@
 
     <EditText
         android:id="@+id/search_user"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView15"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="-2dp"
-        android:layout_marginEnd="0dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginEnd="22dp"
+        android:background="@drawable/botron_from"
+        android:ems="10"
         android:hint="Search"
-        android:textColor="#ECE1E1" />
+        android:padding="10dp"
+        android:textColor="#23272a"
+        android:textColorHint="#23272a"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textView30"
@@ -60,13 +64,13 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_friend"
         android:layout_width="match_parent"
-        android:layout_height="587dp"
+        android:layout_height="590dp"
         android:layout_below="@+id/search_user"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="1dp"
+        android:layout_marginTop="3dp"
         android:layout_marginEnd="0dp"
         android:layout_marginBottom="0dp">
 
